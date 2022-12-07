@@ -47,7 +47,10 @@ namespace TaskLogger.Controllers
                     SqlDataReader sdr = cmd.ExecuteReader();
                     if (sdr.Read())
                     {
-                        instance.Name = sdr.GetString(0);
+                        instance.id = sdr.GetInt32(0); 
+                        Session["id"] = instance.id;
+
+                        instance.Name = sdr.GetString(1);
                         Session["Name"] = instance.Name.ToString();
                         return RedirectToAction("Index", "Dashboard", new { area = "" });
                     }

@@ -1,7 +1,28 @@
-﻿
+﻿@model TaskLogger.Models.Task
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add Task";
 }
 
-<h1>Add</h1>
+<h1>Add Task</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <p>Date (YYYY-MM-DD)</p>
+        @Html.TextBoxFor(model => model.Date)
+    </div>
+    <div>
+        <p>Hours</p>
+        @Html.TextBoxFor(model => model.Hours)
+    </div>
+    <div>
+        <p>Status</p>
+        @Html.TextBoxFor(model => model.Status)
+    </div>
+    <div>
+        <br />
+        <input type="submit" value="Login" />
+    </div>
+
+}
 

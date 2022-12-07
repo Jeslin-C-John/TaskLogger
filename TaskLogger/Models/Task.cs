@@ -8,9 +8,9 @@ namespace TaskLogger.Models
     public class Task
     {
         public string Date { get; set; }
-        public string Name { get; set; }
+        public int Empid { get; set; }
         public int Hours { get; set; }
 
-        public bool Status { get; set; }
+        public int Status { get; set; }
     }
 }

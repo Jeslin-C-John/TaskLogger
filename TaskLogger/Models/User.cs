@@ -11,6 +11,7 @@ namespace TaskLogger.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
+        public int id { get; set; }
         public string EncryptPass { get; set; }
     }
 }

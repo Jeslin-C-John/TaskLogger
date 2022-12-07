@@ -22,16 +22,18 @@ namespace TaskLogger.Controllers
         [HttpPost]
         public ActionResult Index(Task instance)
         {
-            Task taskobj = new Task();
+            
             using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
                 using (SqlCommand cmd = new SqlCommand("addtask", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@name", instance.Name);
-                    //cmd.Parameters.AddWithValue("@email", instance.Email);
-                    //cmd.Parameters.AddWithValue("@password", instance.EncryptPass);
+                    cmd.Parameters.AddWithValue("@empid", Session["id"]);
+                    cmd.Parameters.AddWithValue("@date", instance.Date);
+                    cmd.Parameters.AddWithValue("@hours", instance.Hours);
+                    cmd.Parameters.AddWithValue("@status", instance.Status);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -39,7 +41,7 @@ namespace TaskLogger.Controllers
                 }
 
             }
-            return RedirectToAction("Index", "Login", new { area = "" });
+            return RedirectToAction("Index", "Dashboard", new { area = "" });
         }
     }
 }
