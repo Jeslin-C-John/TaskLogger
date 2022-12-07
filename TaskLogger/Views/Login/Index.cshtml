@@ -1,0 +1,23 @@
+﻿@model TaskLogger.Models.User
+@{
+    ViewBag.Title = "Login";
+}
+
+<h1>Login</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <p>Email</p>
+        @Html.TextBoxFor(model => model.Email)
+    </div>
+    <div>
+        <p>Password</p>
+        @Html.TextBoxFor(model => model.Password)
+    </div>
+    <div>
+        <br />
+        <input type="submit" value="Login" />
+    </div>
+
+}

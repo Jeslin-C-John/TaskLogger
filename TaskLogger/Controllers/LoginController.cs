@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using TaskLogger.Models;
+
+namespace TaskLogger.Controllers
+{
+    public class LoginController : Controller
+    {
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(User instance)
+        {
+            User DataModelobj = new User();
+            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            {
+                using (SqlCommand cmd = new SqlCommand("login", con))
+                {
+
+
+                    using (SHA256 sha256Hash = SHA256.Create())
+                    {
+                        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(instance.Password));
+                        StringBuilder builder = new StringBuilder();
+                        for (int i = 0; i < bytes.Length; i++)
+                        {
+                            builder.Append(bytes[i].ToString("x2"));
+                        }
+                        instance.EncryptPass = builder.ToString();
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", instance.Email);
+                    cmd.Parameters.AddWithValue("@password", instance.EncryptPass);
+                    con.Open();
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
+                    {
+                        instance.Name = sdr.GetString(0);
+                        Session["Name"] = instance.Name.ToString();
+                        return RedirectToAction("Index", "Dashboard", new { area = "" });
+                    }
+                    con.Close();
+
+                }
+
+            }
+            return View();
+        }
+    }
+}
