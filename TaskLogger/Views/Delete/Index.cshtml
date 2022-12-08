@@ -1,0 +1,20 @@
+﻿@model TaskLogger.Models.Task
+@{
+    ViewBag.Title = "Delete Task";
+}
+
+<h1>Delete Task</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <p>Task ID</p>
+        @Html.TextBoxFor(model => model.Taskid)
+    </div>
+    
+    <div>
+        <br />
+        <input type="submit" value="Delete" />
+    </div>
+
+}

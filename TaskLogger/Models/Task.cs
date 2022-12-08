@@ -11,6 +11,9 @@ namespace TaskLogger.Models
         public int Empid { get; set; }
         public int Hours { get; set; }
 
-        public int Status { get; set; }
+        public int Taskid { get; set; }
+
+        public int IntStatus { get; set; }
+        public String StringStatus { get; set; }
     }
 }

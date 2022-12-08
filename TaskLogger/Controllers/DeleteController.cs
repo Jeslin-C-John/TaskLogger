@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TaskLogger.Models;
 
 namespace TaskLogger.Controllers
 {
-    public class AddController : Controller
+    public class DeleteController : Controller
     {
         [HttpGet]
         public ActionResult Index()
@@ -22,24 +20,14 @@ namespace TaskLogger.Controllers
         [HttpPost]
         public ActionResult Index(Task instance)
         {
-            
+
             using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
-                using (SqlCommand cmd = new SqlCommand("addtask", con))
+                using (SqlCommand cmd = new SqlCommand("deletetask", con))
                 {
-                    if (instance.StringStatus == "y" || instance.StringStatus == "Y")
-                    {
-                        instance.IntStatus = 1;
-                    }
-                    else
-                    {
-                        instance.IntStatus = 0;
-                    }
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@empid", Session["id"]);
-                    cmd.Parameters.AddWithValue("@date", instance.Date);
-                    cmd.Parameters.AddWithValue("@hours", instance.Hours);
-                    cmd.Parameters.AddWithValue("@status", instance.IntStatus);
+                    cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
