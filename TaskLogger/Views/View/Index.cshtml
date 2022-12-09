@@ -1,26 +1,22 @@
-﻿@model List<TaskLogger.Models.Task>
+﻿@model TaskLogger.Models.Task
 @{
     ViewBag.Title = "View";
 }
 
 <h1>View Data</h1>
 
-<table border="1">
-    <tr>
-        <th>Task ID</th>
-        <th>Date</th>
-        <th>Hours</th>
-        <th>Status</th>
-    </tr>
-    @foreach(var instance in Model){
-        <tr>
-            <td>@instance.Taskid</td>
-            <td>@instance.Date</td>
-            <td>@instance.Hours</td>
-            <td>@instance.StringStatus</td>
-        </tr>
-    }
-</table>
-<br />
-<br />
-<input type="button" value="Back To Menu" onclick="location.href = '/Dashboard/Index'" />
+@using (Html.BeginForm())
+{
+    <div>
+        <p>Start Date</p>
+        @Html.TextBoxFor(model => model.StartDate)
+    </div>
+    <div>
+        <p>End Date</p>
+        @Html.TextBoxFor(model => model.EndDate)
+    </div>
+    <div>
+        <br />
+        <input type="submit" value="View" />
+    </div>
+}

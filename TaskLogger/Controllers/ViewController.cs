@@ -14,14 +14,14 @@ namespace TaskLogger.Controllers
 {
     public class ViewController : Controller
     {
-        //[HttpGet]
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         [HttpGet]
         public ActionResult Index()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Index(Task e)
         {
             
             var DataList = new List<Task>();
@@ -33,6 +33,10 @@ namespace TaskLogger.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@empid", Session["id"]);
+                    cmd.Parameters.AddWithValue("@startdate", e.StartDate);
+                    cmd.Parameters.AddWithValue("@enddate", e.EndDate);
+
+
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -55,8 +59,8 @@ namespace TaskLogger.Controllers
                 }
 
             }
-            return View(DataList);
+            return View("ResView",DataList);
         }
          
     }
-}
+}   

@@ -15,5 +15,9 @@ namespace TaskLogger.Models
 
         public int IntStatus { get; set; }
         public String StringStatus { get; set; }
+
+        public String StartDate { get; set; }
+        public String EndDate { get; set; }
+
     }
 }
