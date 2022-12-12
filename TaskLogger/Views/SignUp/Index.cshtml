@@ -1,4 +1,4 @@
-﻿@model TaskLogger.Models.User
+﻿@model TaskLogger.Models.UserSignup
 @{
     ViewBag.Title = "Signup";
 }
@@ -19,24 +19,27 @@
 
         <div>
             <br />
-            <p class="font-weight-bold">Name</p>
-            @Html.TextBoxFor(model => model.Name)
+            @*<p class="font-weight-bold">Name</p>*@
+            @Html.TextBoxFor(model => model.Name, new { id = "Name", @class = "form-control", placeholder = "Name *" })
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
         <div>
             <br />
-            <p class="font-weight-bold">Email</p>
-            @Html.TextBoxFor(model => model.Email)
+            @*<p class="font-weight-bold">Email</p>*@
+            @Html.TextBoxFor(model => model.Email, new { id = "Email", @class = "form-control", placeholder = "Email *" })
+            @Html.ValidationMessageFor(model => model.Email)
         </div>
         <div>
             <br />
-            <p class="font-weight-bold">Password</p>
-            @Html.TextBoxFor(model => model.Password)
+            @*<p class="font-weight-bold">Password</p>*@
+            @Html.PasswordFor(model => model.Password, new { id = "Password", @class = "form-control", placeholder = "Password *" })
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div>
             <br /><br />
             
 
-            <input class="btn btn-primary" type="submit" value="Register" onclick="location.href = '/Signup/Index'" />
+            <input class="btn btn-primary" type="submit" value="Register" />
         </div>
     }
 </center>

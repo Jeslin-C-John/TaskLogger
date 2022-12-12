@@ -20,9 +20,11 @@ namespace TaskLogger.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(User instance)
+        public ActionResult Index(UserLogin instance)
         {
-            User DataModelobj = new User();
+            if (ModelState.IsValid)
+            {
+                UserSignup DataModelobj = new UserSignup();
             using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
                 using (SqlCommand cmd = new SqlCommand("login", con))
@@ -47,7 +49,7 @@ namespace TaskLogger.Controllers
                     SqlDataReader sdr = cmd.ExecuteReader();
                     if (sdr.Read())
                     {
-                        instance.id = sdr.GetInt32(0); 
+                        instance.id = sdr.GetInt32(0);
                         Session["id"] = instance.id;
 
                         instance.Name = sdr.GetString(1);
@@ -55,10 +57,13 @@ namespace TaskLogger.Controllers
                         return RedirectToAction("Index", "Dashboard", new { area = "" });
                     }
                     con.Close();
-
                 }
 
             }
+
+
+        }
+            
             return View();
         }
     }

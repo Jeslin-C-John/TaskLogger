@@ -21,38 +21,42 @@ namespace TaskLogger.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(User instance)
+        public ActionResult Index(UserSignup instance)
         {
-            User DataModelobj = new User();
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            if (ModelState.IsValid)
             {
-                using (SqlCommand cmd = new SqlCommand("signup", con))
+                UserSignup DataModelobj = new UserSignup();
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
-                    
-
-                    using (SHA256 sha256Hash = SHA256.Create())
+                    using (SqlCommand cmd = new SqlCommand("signup", con))
                     {
-                        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(instance.Password));
-                        StringBuilder builder = new StringBuilder();
-                        for (int i = 0; i < bytes.Length; i++)
+
+
+                        using (SHA256 sha256Hash = SHA256.Create())
                         {
-                            builder.Append(bytes[i].ToString("x2"));
+                            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(instance.Password));
+                            StringBuilder builder = new StringBuilder();
+                            for (int i = 0; i < bytes.Length; i++)
+                            {
+                                builder.Append(bytes[i].ToString("x2"));
+                            }
+                            instance.EncryptPass = builder.ToString();
                         }
-                        instance.EncryptPass = builder.ToString();
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@name", instance.Name);
+                        cmd.Parameters.AddWithValue("@email", instance.Email);
+                        cmd.Parameters.AddWithValue("@password", instance.EncryptPass);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
                     }
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@name", instance.Name);
-                    cmd.Parameters.AddWithValue("@email", instance.Email); 
-                    cmd.Parameters.AddWithValue("@password", instance.EncryptPass);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    
                 }
-
+                return RedirectToAction("Index", "Login", new { area = "" });
             }
-            return RedirectToAction("Index", "Login", new { area = "" });
+            return View();
         }
     }
 }

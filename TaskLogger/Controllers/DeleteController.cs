@@ -19,24 +19,28 @@ namespace TaskLogger.Controllers
 
         [HttpPost]
         public ActionResult Index(Task instance)
+
         {
-
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            if (ModelState.IsValid)
             {
-                using (SqlCommand cmd = new SqlCommand("deletetask", con))
-                {
-                    
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+                {
+                    using (SqlCommand cmd = new SqlCommand("deletetask", con))
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                    }
 
                 }
-
-            }
-            return RedirectToAction("Index", "Dashboard", new { area = "" });
+                return RedirectToAction("Index", "Dashboard", new { area = "" });
+            }return View();
         }
     }
 }

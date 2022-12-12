@@ -20,33 +20,36 @@ namespace TaskLogger.Controllers
         [HttpPost]
         public ActionResult Index(Task instance)
         {
-
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            if (ModelState.IsValid)
             {
-                using (SqlCommand cmd = new SqlCommand("updatetask", con))
-                {
-                    if (instance.StringStatus == "y" || instance.StringStatus == "Y")
-                    {
-                        instance.IntStatus = 1;
-                    }
-                    else
-                    {
-                        instance.IntStatus = 0;
-                    }
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
-                    cmd.Parameters.AddWithValue("@date", instance.Date);
-                    cmd.Parameters.AddWithValue("@hours", instance.Hours);
-                    cmd.Parameters.AddWithValue("@status", instance.IntStatus);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+                {
+                    using (SqlCommand cmd = new SqlCommand("updatetask", con))
+                    {
+                        if (instance.StringStatus == "y" || instance.StringStatus == "Y")
+                        {
+                            instance.BoolStatus = true;
+                        }
+                        else
+                        {
+                            instance.BoolStatus = false;
+                        }
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
+                        cmd.Parameters.AddWithValue("@date", instance.Date);
+                        cmd.Parameters.AddWithValue("@hours", instance.Hours);
+                        cmd.Parameters.AddWithValue("@status", instance.BoolStatus);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                    }
 
                 }
-
-            }
-            return RedirectToAction("Index", "Dashboard", new { area = "" });
+                return RedirectToAction("Index", "Dashboard", new { area = "" });
+            }return View();
         }
     }
 }

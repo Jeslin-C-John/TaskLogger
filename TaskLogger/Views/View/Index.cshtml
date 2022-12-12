@@ -15,12 +15,15 @@
     @using (Html.BeginForm())
     {
         <div>
-            <p>Start Date</p>
-            @Html.TextBoxFor(model => model.StartDate)
+            @*<p>Date (YYYY-MM-DD)</p>*@
+            @Html.TextBoxFor(model => model.StartDate, new { id = "StartDate", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.ValidationMessageFor(model => model.StartDate)
         </div>
+        <br/>
         <div>
-            <p>End Date</p>
-            @Html.TextBoxFor(model => model.EndDate)
+            @*<p>Date (YYYY-MM-DD)</p>*@
+            @Html.TextBoxFor(model => model.EndDate, new { id = "EndDate", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.ValidationMessageFor(model => model.EndDate)
         </div>
         <div>
             <br />

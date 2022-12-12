@@ -23,43 +23,48 @@ namespace TaskLogger.Controllers
         [HttpPost]
         public ActionResult Index(Task e)
         {
-            
-            var DataList = new List<Task>();
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
-            {
-                
-                using (SqlCommand cmd = new SqlCommand("viewtask", con))
+            //if (ModelState.IsValid)
+            //{
+
+                var DataList = new List<Task>();
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@empid", Session["id"]);
-                    cmd.Parameters.AddWithValue("@startdate", e.StartDate);
-                    cmd.Parameters.AddWithValue("@enddate", e.EndDate);
-
-
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    using (SqlCommand cmd = new SqlCommand("viewtask", con))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        var instance = new Task();
-                        instance.Taskid = rdr.GetInt32(0);
-                        instance.Date = rdr.GetString(1);
-                        instance.Hours = rdr.GetInt32(2);
-                        instance.IntStatus = rdr.GetInt32(3);
-                        if (instance.IntStatus==0)
-                        { instance.StringStatus = "Incomplete"; }
-                        else
-                        { instance.StringStatus = "Completed"; }
+                        cmd.Parameters.AddWithValue("@empid", Session["id"]);
+                        cmd.Parameters.AddWithValue("@startdate", e.StartDate);
+                        cmd.Parameters.AddWithValue("@enddate", e.EndDate);
 
-                        DataList.Add(instance);
+
+                        con.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+
+                            var instance = new Task();
+                            instance.Taskid = rdr.GetInt32(0);
+                            instance.StringDate = rdr.GetString(1);
+                            instance.Hours = rdr.GetInt32(2);
+                            instance.BoolStatus = rdr.GetBoolean(3);
+                            if (instance.BoolStatus == true)
+                            { instance.StringStatus = "Incomplete"; }
+                            else
+                            { instance.StringStatus = "Completed"; }
+
+                            DataList.Add(instance);
+                            return View("ResView", DataList);
+                        }
+                        con.Close();
+
                     }
-                    con.Close();
-
+                    
                 }
-
-            }
-            return View("ResView",DataList);
+                
+            //}
+            return View();
         }
          
     }

@@ -15,8 +15,9 @@
     @using (Html.BeginForm())
     {
         <div>
-            <p>Task ID</p>
-            @Html.TextBoxFor(model => model.Taskid)
+            @*<p>Task ID</p>*@
+            @Html.TextBoxFor(model => model.Taskid, new { id = "Taskid", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.ValidationMessageFor(model => model.Taskid)
         </div>
 
         <div>

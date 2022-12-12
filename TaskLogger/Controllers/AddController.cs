@@ -22,33 +22,36 @@ namespace TaskLogger.Controllers
         [HttpPost]
         public ActionResult Index(Task instance)
         {
-            
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            if (ModelState.IsValid)
             {
-                using (SqlCommand cmd = new SqlCommand("addtask", con))
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
-                    if (instance.StringStatus == "y" || instance.StringStatus == "Y")
+                    using (SqlCommand cmd = new SqlCommand("addtask", con))
                     {
-                        instance.IntStatus = 1;
-                    }
-                    else
-                    {
-                        instance.IntStatus = 0;
-                    }
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@empid", Session["id"]);
-                    cmd.Parameters.AddWithValue("@date", instance.Date);
-                    cmd.Parameters.AddWithValue("@hours", instance.Hours);
-                    cmd.Parameters.AddWithValue("@status", instance.IntStatus);
+                        if (instance.StringStatus == "y" || instance.StringStatus == "Y")
+                        {
+                            instance.BoolStatus = true;
+                        }
+                        else
+                        {
+                            instance.BoolStatus = false;
+                        }
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@empid", Session["id"]);
+                        cmd.Parameters.AddWithValue("@date", instance.Date);
+                        cmd.Parameters.AddWithValue("@hours", instance.Hours);
+                        cmd.Parameters.AddWithValue("@status", instance.BoolStatus);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                    }
 
                 }
-
+                return RedirectToAction("Index", "Dashboard", new { area = "" });
             }
-            return RedirectToAction("Index", "Dashboard", new { area = "" });
+            return View();
         }
     }
 }

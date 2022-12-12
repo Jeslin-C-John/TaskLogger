@@ -13,18 +13,23 @@
     <h1>Add Task</h1>
 
     @using (Html.BeginForm())
-    {
+    {<br />
         <div>
-            <p>Date (YYYY-MM-DD)</p>
-            @Html.TextBoxFor(model => model.Date)
+            @*<p>Date (YYYY-MM-DD)</p>*@
+            @Html.TextBoxFor(model => model.Date, new { id = "Date", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.ValidationMessageFor(model => model.Date)
         </div>
+        <br />
         <div>
-            <p>Hours</p>
-            @Html.TextBoxFor(model => model.Hours)
+            @*<p>Hours</p>*@
+            @Html.TextBoxFor(model => model.Hours, new { id = "Hours", @class = "form-control", placeholder = "Hours *" })
+            @Html.ValidationMessageFor(model => model.Hours)
         </div>
+        <br />
         <div>
-            <p>Status (y/Y for completion)</p>
-            @Html.TextBoxFor(model => model.StringStatus)
+            @*<p>Status (y/Y for completion)</p>*@
+            @Html.TextBoxFor(model => model.StringStatus, new { id = "StringStatus", @class = "form-control", placeholder = "Status (y/Y for completion) *" })
+            @Html.ValidationMessageFor(model => model.StringStatus)
         </div>
         <div>
             <br />
