@@ -8,15 +8,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---ALTER PROCEDURE dbo.insertuser
---(
---@name varchar(50),  
---@password varchar(50)
---)
---AS
---BEGIN
---INSERT INTO dbo.userlist (name,password) VALUES( @name, @password)
---END
 
 CREATE PROCEDURE [dbo].[login]
 (

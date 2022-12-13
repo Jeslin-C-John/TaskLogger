@@ -51,9 +51,9 @@ namespace TaskLogger.Controllers
                             instance.Hours = rdr.GetInt32(2);
                             instance.BoolStatus = rdr.GetBoolean(3);
                             if (instance.BoolStatus == false)
-                            { instance.StringStatus = 'Y'; }
-                            else
                             { instance.StringStatus = 'N'; }
+                            else
+                            { instance.StringStatus = 'Y'; }
 
                             DataList.Add(instance);
                             

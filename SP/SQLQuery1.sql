@@ -25,8 +25,3 @@ ALTER TABLE [dbo].[tasks]  WITH CHECK ADD FOREIGN KEY([empid])
 REFERENCES [dbo].[users] ([id])
 GO
 
-ALTER TABLE [dbo].[tasks]  WITH CHECK ADD FOREIGN KEY([empid])
-REFERENCES [dbo].[users] ([id])
-GO
-
-
