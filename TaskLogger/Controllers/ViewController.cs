@@ -13,13 +13,14 @@ namespace TaskLogger.Controllers
 {
     public class ViewController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
+        
+        
         public ActionResult Index(ViewTask e)
         {
 

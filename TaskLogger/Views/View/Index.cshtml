@@ -1,4 +1,5 @@
 ﻿@model TaskLogger.Models.ViewTask
+
 @{
     ViewBag.Title = "View";
 }
@@ -30,6 +31,9 @@
             <input type="submit" value="View" />
         </div>
     }
+
 </center>
 
-@{Html.RenderPartial("ViewPartial")}
+<div>
+    @Html.Partial("ViewPartial", Model)
+</div>
