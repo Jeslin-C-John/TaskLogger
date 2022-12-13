@@ -9,10 +9,10 @@ namespace TaskLogger.Models
 {
     public class ViewTask
     {
-        [Required(ErrorMessage = "Start Date is required!")]
-        public String StartDate { get; set; }
+        //[Required(ErrorMessage = "Start Date is required!")]
+        public DateTime? StartDate { get; set; }
 
-        [Required(ErrorMessage = "End Date is required!")]
-        public String EndDate { get; set; }
+        //[Required(ErrorMessage = "End Date is required!")]
+        public DateTime? EndDate { get; set; }
     }
 }

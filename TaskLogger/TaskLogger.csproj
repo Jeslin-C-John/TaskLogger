@@ -125,6 +125,7 @@
     <Content Include="Views\Delete\Index.cshtml" />
     <Content Include="Views\View\Index.cshtml" />
     <Content Include="Views\View\ResView.cshtml" />
+    <Content Include="Views\View\ViewPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
