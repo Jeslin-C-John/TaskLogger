@@ -29,8 +29,10 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div>
-            <br /><br />
-                  <input class="btn btn-primary" type="submit" value="Login" />
+            <br /><div class="text-danger">
+    @ViewBag.Message    
+</div><br /><br /><br />
+            <input class="btn btn-primary" type="submit" value="Login" />
 
 
             <input class="btn btn-primary" type="button" value="Register" onclick="location.href = '/Signup/Index'" />

@@ -40,7 +40,8 @@ namespace TaskLogger.Controllers
 
                 }
                 return RedirectToAction("Index", "Dashboard", new { area = "" });
-            }return View();
+            }
+            return View();
         }
     }
 }

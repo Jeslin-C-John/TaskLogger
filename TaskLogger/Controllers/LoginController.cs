@@ -57,7 +57,9 @@ namespace TaskLogger.Controllers
                         return RedirectToAction("Index", "Dashboard", new { area = "" });
                     }
                     con.Close();
-                }
+
+                        ViewBag.Message = "Invalid Credentials!";
+                    }
 
             }
 

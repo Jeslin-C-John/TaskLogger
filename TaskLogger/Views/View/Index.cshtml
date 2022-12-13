@@ -1,4 +1,4 @@
-﻿@model TaskLogger.Models.Task
+﻿@model TaskLogger.Models.ViewTask
 @{
     ViewBag.Title = "View";
 }
@@ -16,13 +16,13 @@
     {
         <div>
             @*<p>Date (YYYY-MM-DD)</p>*@
-            @Html.TextBoxFor(model => model.StartDate, new { id = "StartDate", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.TextBoxFor(model => model.StartDate, new { id = "StartDate", @class = "form-control", placeholder = "Start Date (YYYY-MM-DD) *" })
             @Html.ValidationMessageFor(model => model.StartDate)
         </div>
-        <br/>
+        <br />
         <div>
             @*<p>Date (YYYY-MM-DD)</p>*@
-            @Html.TextBoxFor(model => model.EndDate, new { id = "EndDate", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.TextBoxFor(model => model.EndDate, new { id = "EndDate", @class = "form-control", placeholder = "End Date (YYYY-MM-DD) *" })
             @Html.ValidationMessageFor(model => model.EndDate)
         </div>
         <div>

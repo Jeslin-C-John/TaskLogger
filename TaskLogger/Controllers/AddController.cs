@@ -28,7 +28,7 @@ namespace TaskLogger.Controllers
                 {
                     using (SqlCommand cmd = new SqlCommand("addtask", con))
                     {
-                        if (instance.StringStatus == "y" || instance.StringStatus == "Y")
+                        if (instance.StringStatus == 'y' || instance.StringStatus == 'Y')
                         {
                             instance.BoolStatus = true;
                         }
@@ -50,8 +50,8 @@ namespace TaskLogger.Controllers
 
                 }
                 return RedirectToAction("Index", "Dashboard", new { area = "" });
-            }
-            return View();
         }
+            return View();
+    }
     }
 }

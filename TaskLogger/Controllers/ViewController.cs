@@ -21,10 +21,10 @@ namespace TaskLogger.Controllers
         }
         
         [HttpPost]
-        public ActionResult Index(Task e)
+        public ActionResult Index(ViewTask e)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
 
                 var DataList = new List<Task>();
                 using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
@@ -46,24 +46,25 @@ namespace TaskLogger.Controllers
 
                             var instance = new Task();
                             instance.Taskid = rdr.GetInt32(0);
-                            instance.StringDate = rdr.GetString(1);
+                            instance.Date = rdr.GetDateTime(1);
+                            instance.ShortDate = instance.Date.ToString("yyyy-MM-dd");
                             instance.Hours = rdr.GetInt32(2);
                             instance.BoolStatus = rdr.GetBoolean(3);
-                            if (instance.BoolStatus == true)
-                            { instance.StringStatus = "Incomplete"; }
+                            if (instance.BoolStatus == false)
+                            { instance.StringStatus = 'Y'; }
                             else
-                            { instance.StringStatus = "Completed"; }
+                            { instance.StringStatus = 'N'; }
 
                             DataList.Add(instance);
-                            return View("ResView", DataList);
+                            
                         }
                         con.Close();
-
-                    }
+                    return View("ResView", DataList);
+                }
                     
                 }
-                
-            //}
+
+            }
             return View();
         }
          
