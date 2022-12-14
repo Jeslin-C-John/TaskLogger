@@ -1,6 +1,7 @@
-﻿@model TaskLogger.Models.Task
+﻿@model TaskLogger.Models.ViewTask
+
 @{
-    ViewBag.Title = "Add Task";
+    ViewBag.Title = "View";
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -8,35 +9,34 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
 <center>
-    <h1>Add Task</h1>
+    <h1>View Data</h1>
 
     @using (Html.BeginForm())
-    {<br />
+    {
         <div>
             @*<p>Date (YYYY-MM-DD)</p>*@
-            @Html.TextBoxFor(model => model.Date, new { id = "Date", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
-            @Html.ValidationMessageFor(model => model.Date)
+            @Html.TextBoxFor(model => model.StartDate, new { id = "StartDate", @class = "form-control datepicker", placeholder = "Start Date (YYYY-MM-DD) *" })
+
         </div>
         <br />
         <div>
-            @*<p>Hours</p>*@
-            @Html.TextBoxFor(model => model.Hours, new { id = "Hours", @class = "form-control", placeholder = "Hours *" })
-            @Html.ValidationMessageFor(model => model.Hours)
-        </div>
-        <br />
-        <div>
-            @*<p>Status (y/Y for completion)</p>*@
-            @Html.TextBoxFor(model => model.StringStatus, new { id = "StringStatus", @class = "form-control", placeholder = "Status (y/Y for completion) *" })
-            @Html.ValidationMessageFor(model => model.StringStatus)
+            @*<p>Date (YYYY-MM-DD)</p>*@
+            @Html.TextBoxFor(model => model.EndDate, new { id = "EndDate", @class = "form-control datepicker", placeholder = "End Date (YYYY-MM-DD) *" })
+
         </div>
         <div>
             <br />
-            <input class="btn btn-primary" type="submit" value="Add" />
+            <input type="submit" value="View" />
             <input type="button" value="Cancel" onclick="location.href = '/View/Index'" />
-        </div>
 
+        </div>
     }
 
 </center>
+

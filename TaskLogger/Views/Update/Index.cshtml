@@ -14,11 +14,11 @@
 
     @using (Html.BeginForm())
     {
-        <div>
-            @*<p>Task ID</p>*@
+        @*<div>
+           
             @Html.TextBoxFor(model => model.Taskid, new { id = "Taskid", @class = "form-control", placeholder = "Task ID *" })
             @Html.ValidationMessageFor(model => model.Taskid)
-        </div>
+        </div>*@
         <br />
         <div>
             @*<p>Date (YYYY-MM-DD)</p>*@
@@ -40,6 +40,7 @@
         <div>
             <br />
             <input type="submit" value="Update" />
+            <input type="button" value="Cancel" onclick="location.href = '/View/Index'" />
         </div>
 
     }

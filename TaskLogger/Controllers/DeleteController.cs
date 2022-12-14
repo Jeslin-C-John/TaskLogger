@@ -18,7 +18,7 @@ namespace TaskLogger.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Task instance)
+        public ActionResult Index(Task instance,int Taskid)
 
         {
             if (ModelState.IsValid)
@@ -30,7 +30,7 @@ namespace TaskLogger.Controllers
                     {
 
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@taskid", instance.Taskid);
+                        cmd.Parameters.AddWithValue("@taskid", Taskid);
 
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -39,7 +39,7 @@ namespace TaskLogger.Controllers
                     }
 
                 }
-                return RedirectToAction("Index", "Dashboard", new { area = "" });
+                return RedirectToAction("Index", "View", new { area = "" });
             }
             return View();
         }

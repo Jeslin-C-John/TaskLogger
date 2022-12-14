@@ -11,16 +11,16 @@ using System.Globalization;
 
 namespace TaskLogger.Controllers
 {
-    public class ViewController : Controller
+    public class DupViewController : Controller
     {
-        //[HttpGet]
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-
         [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
         public ActionResult Index(ViewTask e)
         {
 

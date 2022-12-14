@@ -54,7 +54,7 @@ namespace TaskLogger.Controllers
 
                         instance.Name = sdr.GetString(1);
                         Session["Name"] = instance.Name.ToString();
-                        return RedirectToAction("Index", "Dashboard", new { area = "" });
+                        return RedirectToAction("Index", "View", new { area = "" });
                     }
                     con.Close();
 

@@ -1,5 +1,4 @@
-﻿
-@model List<TaskLogger.Models.Task>
+﻿@model List<TaskLogger.Models.Task>
 
 @{
     ViewBag.Title = "View";
@@ -17,6 +16,12 @@
 
 <center>
     <h1>View Data</h1>
+    <input class="btn btn-danger btn-sm float-right" type="button" value="Logout" onclick="location.href = '/Login/Index'" />
+
+    <br />
+    @*<input type="button" value="Filter By Date" onclick="location.href = '/Filter/Index'" />*@
+    @*<input type="button" value="Add" onclick="location.href = '/Add/Index'" />*@
+    <input class="btn btn-primary btn-sm float-left" type="button" value="Clear Filter" onclick="location.href = '/View/Index'" />
     <br /><br />
     <table class="table">
         <tr>
@@ -24,6 +29,8 @@
             <th>Date</th>
             <th>Hours</th>
             <th>Status</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         @foreach (var instance in Model)
         {
@@ -32,11 +39,13 @@
                 <td>@instance.ShortDate</td>
                 <td>@instance.Hours</td>
                 <td>@instance.StringStatus</td>
+                <td><input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" /></td>
+                <td><input type="button" value="Delete" onclick="location.href = '@Url.Action("Index", "Delete", new { Taskid=@instance.Taskid})'" /></td>
             </tr>
         }
     </table>
     <br />
-    <br />
-    <input type="button" value="Back To Menu" onclick="location.href = '/Dashboard/Index'" />
-</center>
 
+    <br />
+
+</center>
