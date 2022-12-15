@@ -29,9 +29,9 @@
         </div>
         <br />
         <div>
-            @*<p>Status (y/Y for completion)</p>*@
-            @Html.TextBoxFor(model => model.StringStatus, new { id = "StringStatus", @class = "form-control", placeholder = "Status (y/Y for completion) *" })
-            @Html.ValidationMessageFor(model => model.StringStatus)
+            @*@Html.TextBoxFor(model => model.StringStatus, new { id = "StringStatus", @class = "form-control", placeholder = "Status (y/Y for completion) *" })
+        @Html.ValidationMessageFor(model => model.StringStatus)*@
+            <p><span>@Html.CheckBoxFor(model => model.BoolStatus)</span>    Check For Completion.</p>
         </div>
         <div>
             <br />

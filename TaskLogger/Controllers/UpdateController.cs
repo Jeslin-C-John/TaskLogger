@@ -27,14 +27,14 @@ namespace TaskLogger.Controllers
                 {
                     using (SqlCommand cmd = new SqlCommand("updatetask", con))
                     {
-                        if (instance.StringStatus == 'y' || instance.StringStatus == 'Y')
-                        {
-                            instance.BoolStatus = true;
-                        }
-                        else
-                        {
-                            instance.BoolStatus = false;
-                        }
+                        //if (instance.StringStatus == 'y' || instance.StringStatus == 'Y')
+                        //{
+                        //    instance.BoolStatus = true;
+                        //}
+                        //else
+                        //{
+                        //    instance.BoolStatus = false;
+                        //}
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@taskid", Taskid);
                         cmd.Parameters.AddWithValue("@date", instance.Date);
