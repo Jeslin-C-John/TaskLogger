@@ -23,6 +23,7 @@ namespace TaskLogger.Controllers
         [HttpGet]
         public ActionResult Index(ViewTask e)
         {
+            ViewBag.Name = Session["Name"];
 
             if (e.StartDate == null)
             {

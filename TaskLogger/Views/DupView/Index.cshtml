@@ -1,5 +1,7 @@
 ﻿@model TaskLogger.Models.ViewTask
-
+@{
+    Layout = "~/Views/Shared/_LayoutLogout.cshtml";
+}
 
 @{
     ViewBag.Title = "View";
@@ -12,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 <center>
-    <h1>View Data</h1>
+    <h1>Filter Data</h1>
 
     @using (Html.BeginForm())
     {
@@ -29,8 +31,8 @@
         </div>
         <div>
             <br />
-            <input type="submit" value="View" />
-            <input type="button" value="Cancel" onclick="location.href = '/View/Index'" />
+            <input class="btn btn-primary" type="submit" value="View" />
+            <input class="btn btn-primary" type="button" value="Cancel" onclick="location.href = '/View/Index'" />
         </div>
     }
 

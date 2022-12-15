@@ -11,6 +11,7 @@ namespace TaskLogger.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Name = Session["Name"];
             return View();
         }
     }

@@ -129,6 +129,7 @@
     <Content Include="Views\Filter\Index.cshtml" />
     <Content Include="Views\DupView\Index.cshtml" />
     <Content Include="Views\DupView\ResView.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

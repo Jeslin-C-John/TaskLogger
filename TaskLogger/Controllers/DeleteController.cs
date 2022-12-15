@@ -14,6 +14,7 @@ namespace TaskLogger.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Name = Session["Name"];
             return View();
         }
 
@@ -21,6 +22,7 @@ namespace TaskLogger.Controllers
         public ActionResult Index(Task instance,int Taskid)
 
         {
+            ViewBag.Name = Session["Name"];
             if (ModelState.IsValid)
             {
 

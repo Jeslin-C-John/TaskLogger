@@ -1,4 +1,7 @@
-﻿@model TaskLogger.Models.Task
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogout.cshtml";
+}
+@model TaskLogger.Models.Task
 @{
     ViewBag.Title = "Add Task";
 }
@@ -15,12 +18,12 @@
 
     @using (Html.BeginForm())
     {<br />
-     <div>
+        <div>
 
-         @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control input-sm" } })
-         @Html.ValidationMessageFor(model => model.Date)
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control input-sm" } })
+            @Html.ValidationMessageFor(model => model.Date)
 
-     </div>
+        </div>
         <br />
         <div>
             @*<p>Hours</p>*@
@@ -30,13 +33,13 @@
         <br />
         <div>
             @*@Html.TextBoxFor(model => model.StringStatus, new { id = "StringStatus", @class = "form-control", placeholder = "Status (y/Y for completion) *" })
-        @Html.ValidationMessageFor(model => model.StringStatus)*@
+                @Html.ValidationMessageFor(model => model.StringStatus)*@
             <p><span>@Html.CheckBoxFor(model => model.BoolStatus)</span>    Check For Completion.</p>
         </div>
         <div>
             <br />
             <input class="btn btn-primary" type="submit" value="Add" />
-            <input type="button" value="Cancel" onclick="location.href = '/View/Index'" />
+            <input class="btn btn-primary" type="button" value="Cancel" onclick="location.href = '/View/Index'" />
         </div>
 
     }

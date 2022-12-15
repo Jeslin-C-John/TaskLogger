@@ -17,12 +17,14 @@ namespace TaskLogger.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+           
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(UserSignup instance)
         {
+            
             if (ModelState.IsValid)
             {
                 UserSignup DataModelobj = new UserSignup();

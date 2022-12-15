@@ -16,12 +16,14 @@ namespace TaskLogger.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Name = Session["Name"];
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(Task instance)
         {
+            ViewBag.Name = Session["Name"];
             if (ModelState.IsValid)
             {
                 using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))

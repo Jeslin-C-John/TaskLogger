@@ -1,5 +1,7 @@
 ﻿@model List<TaskLogger.Models.Task>
-
+@{
+    Layout = "~/Views/Shared/_LayoutLogout.cshtml";
+}
 @{
     ViewBag.Title = "View";
 }
@@ -15,7 +17,7 @@
 
 
 <center>
-    <h1>View Data</h1>
+    <h1>Filtered Data</h1>
     <input class="btn btn-danger btn-sm float-right" type="button" value="Logout" onclick="location.href = '/Login/Index'" />
 
     <br />

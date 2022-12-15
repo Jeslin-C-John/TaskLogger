@@ -11,6 +11,7 @@ namespace TaskLogger.Controllers
         // GET: Filter
         public ActionResult Index()
         {
+            ViewBag.Name = Session["Name"];
             return RedirectToAction("Index", "DupView", new { area = "" });
         }
     }

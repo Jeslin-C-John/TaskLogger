@@ -1,5 +1,7 @@
 ﻿@model TaskLogger.Models.ViewTask
-
+@{
+    Layout = "~/Views/Shared/_LayoutLogout.cshtml";
+}
 @{
     ViewBag.Title = "View";
 }
@@ -32,8 +34,8 @@
         </div>
         <div>
             <br />
-            <input type="submit" value="View" />
-            <input type="button" value="Cancel" onclick="location.href = '/View/Index'" />
+            <input class="btn btn-primary" type="submit" value="View" />
+            <input class="btn btn-primary" type="button" value="Cancel" onclick="location.href = '/View/Index'" />
 
         </div>
     }
