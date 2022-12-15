@@ -9,10 +9,14 @@ namespace TaskLogger.Models
 {
     public class ViewTask
     {
-        //[Required(ErrorMessage = "Start Date is required!")]
+        [DataType(DataType.Date)]
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? StartDate { get; set; }
 
-        //[Required(ErrorMessage = "End Date is required!")]
+        [DataType(DataType.Date)]
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
     }
 }

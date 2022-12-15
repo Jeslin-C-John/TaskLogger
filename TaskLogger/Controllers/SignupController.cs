@@ -28,6 +28,24 @@ namespace TaskLogger.Controllers
                 UserSignup DataModelobj = new UserSignup();
                 using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
+                    using (SqlCommand cmd = new SqlCommand("usercheck", con))
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@email", instance.Email);
+                        con.Open();
+                        SqlDataReader sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
+                            instance.id = sdr.GetInt32(0);
+                            ViewBag.Message = "E-mail ID already registered!!";
+                            return View();
+                        }
+                        con.Close();
+
+                        
+                    }
+
                     using (SqlCommand cmd = new SqlCommand("signup", con))
                     {
 

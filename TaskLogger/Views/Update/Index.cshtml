@@ -14,15 +14,11 @@
 
     @using (Html.BeginForm())
     {
-        @*<div>
-           
-            @Html.TextBoxFor(model => model.Taskid, new { id = "Taskid", @class = "form-control", placeholder = "Task ID *" })
-            @Html.ValidationMessageFor(model => model.Taskid)
-        </div>*@
+        
         <br />
         <div>
             @*<p>Date (YYYY-MM-DD)</p>*@
-            @Html.TextBoxFor(model => model.Date, new { id = "Date", @class = "form-control", placeholder = "Date (YYYY-MM-DD) *" })
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control input-sm" } })
             @Html.ValidationMessageFor(model => model.Date)
         </div>
         <br />

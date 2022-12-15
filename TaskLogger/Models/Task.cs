@@ -13,8 +13,10 @@ namespace TaskLogger.Models
 
 
         //[Required(ErrorMessage = "Date is required!")]
+        [DataType(DataType.Date)]
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-        //public String StringDate { get; set; }
 
 
 

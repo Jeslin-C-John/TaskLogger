@@ -36,10 +36,9 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div>
-            <br /><br />
-
-
-            <input class="btn btn-primary" type="submit" value="Register" />
+            <br /><div class="text-danger">
+                @ViewBag.Message
+            </div><br /><br /><br /> <input class="btn btn-primary" type="submit" value="Register" />
             <input class="btn btn-primary" type="button" value="Back To Login" onclick="location.href = '/Login/Index'" />
         </div>
     }
