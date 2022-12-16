@@ -21,9 +21,10 @@ namespace TaskLogger.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(ViewTask e)
+        public ActionResult Index(ViewTask e, int page = 0)
         {
             ViewBag.Name = Session["Name"];
+            var data = new List<Task>();
 
             if (e.StartDate == null)
             {
@@ -68,9 +69,23 @@ namespace TaskLogger.Controllers
 
                         DataList.Add(instance);
 
+
+                        const int PageSize = 1;
+
+                        var count = DataList.Count();
+
+                        data = DataList.Skip(page * PageSize).Take(PageSize).ToList();
+
+                        this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+                        this.ViewBag.Page = page;
+
+                       
+
                     }
                     con.Close();
-                    return View("ResView",DataList);
+
+                    return this.View("ResView", data);
                 }
 
             }
