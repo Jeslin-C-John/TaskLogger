@@ -15,6 +15,62 @@
 
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
+
+@*<script>
+    $(document).ready(function () {
+        $('#view').DataTable();
+    });
+</script>*@
+
+<script>
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[4]);
+
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    $(document).ready(function () {
+        // Create date inputs
+        minDate = new DateTime($('#min'), {
+            format: 'MMMM Do YYYY'
+        });
+        maxDate = new DateTime($('#max'), {
+            format: 'MMMM Do YYYY'
+        });
+
+        // DataTables initialisation
+        var table = $('#view').DataTable();
+
+        // Refilter the table
+        $('#min, #max').on('change', function () {
+            table.draw();
+        });
+    });
+</script>
+
+
+
 
 <center>
     <h1>Home</h1>
@@ -25,30 +81,46 @@
     <input class="btn btn-primary btn-sm float-left" type="button" value="Add Task" onclick="location.href = '/Add/Index'" />
     <hr />
     <hr />
-    <input class="btn btn-primary btn-sm float-left" type="button" value="Filter By Date" onclick="location.href = '/Filter/Index'" />
+    @*<input class="btn btn-primary btn-sm float-left" type="button" value="Filter By Date" onclick="location.href = '/Filter/Index'" />*@
 
 
     <br /><br />
-    <table class="table">
-        <tr>
-            <th>Task ID</th>
-            <th>Date</th>
-            <th>Hours</th>
-            <th>Status</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        @foreach (var instance in Model)
-        {
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
             <tr>
-                <td>@instance.Taskid</td>
-                <td>@instance.ShortDate</td>
-                <td>@instance.Hours</td>
-                <td>@instance.StringStatus</td>
-                <td><input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" /></td>
-                <td><input type="button" value="Delete" onclick="location.href = '@Url.Action("Index", "Delete", new { Taskid=@instance.Taskid})'" /></td>
+                <td>Minimum date:</td>
+                <td><input type="text" id="min" name="min"></td>
             </tr>
-        }
+            <tr>
+                <td>Maximum date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table id="view">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Date</th>
+                <th>Hours</th>
+                <th>Status</th>
+                @*<th>Update</th>
+                    <th>Delete</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var instance in Model)
+            {
+                <tr>
+                    <td>@instance.Taskid</td>
+                    <td>@instance.ShortDate</td>
+                    <td>@instance.Hours</td>
+                    <td>@instance.StringStatus</td>
+                    @*<td><input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" /></td>
+                        <td><input type="button" value="Delete" onclick="location.href = '@Url.Action("Index", "Delete", new { Taskid=@instance.Taskid})'" /></td>*@
+                </tr>
+            }
+        </tbody>
     </table>
     <br />
 
@@ -56,17 +128,3 @@
 
 
 </center>
-@if (ViewBag.Page > 0)
-{
-    <a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })"
-       class="btn btn-secondary float-left">
-        &laquo; Prev
-    </a>
-}
-@if (ViewBag.Page < ViewBag.MaxPage)
-{
-    <a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })"
-       class="btn btn-secondary float-right">
-        Next &raquo;
-    </a>
-}

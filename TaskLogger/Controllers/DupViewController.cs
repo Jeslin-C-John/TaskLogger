@@ -34,12 +34,12 @@ namespace TaskLogger.Controllers
             }
             if (e.EndDate == null)
             {
-                DateTime NowDate= DateTime.Now;
+                DateTime NowDate = DateTime.Now;
                 e.EndDate = NowDate;
             }
 
             var DataList = new List<Task>();
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
 
                 using (SqlCommand cmd = new SqlCommand("viewtask", con))
@@ -71,7 +71,8 @@ namespace TaskLogger.Controllers
 
                     }
                     con.Close();
-                    return View("ResView",DataList);
+
+                    return View("ResView", DataList);
                 }
 
             }

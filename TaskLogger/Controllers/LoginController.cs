@@ -27,7 +27,7 @@ namespace TaskLogger.Controllers
             if (ModelState.IsValid)
             {
                 UserSignup DataModelobj = new UserSignup();
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
                 using (SqlCommand cmd = new SqlCommand("login", con))
                 {

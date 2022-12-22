@@ -26,7 +26,7 @@ namespace TaskLogger.Controllers
             ViewBag.Name = Session["Name"];
             if (ModelState.IsValid)
             {
-                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+                using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
                     using (SqlCommand cmd = new SqlCommand("addtask", con))
                     {

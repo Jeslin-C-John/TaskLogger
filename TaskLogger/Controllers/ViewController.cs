@@ -21,10 +21,9 @@ namespace TaskLogger.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(ViewTask e, int page = 0)
+        public ActionResult Index(ViewTask e)
         {
             ViewBag.Name = Session["Name"];
-            var data = new List<Task>();
 
             if (e.StartDate == null)
             {
@@ -39,7 +38,7 @@ namespace TaskLogger.Controllers
             }
 
             var DataList = new List<Task>();
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-28UGTAO;Initial Catalog=TaskLogger;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
 
                 using (SqlCommand cmd = new SqlCommand("viewtask", con))
@@ -69,23 +68,10 @@ namespace TaskLogger.Controllers
 
                         DataList.Add(instance);
 
-
-                        const int PageSize = 1;
-
-                        var count = DataList.Count();
-
-                        data = DataList.Skip(page * PageSize).Take(PageSize).ToList();
-
-                        this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
-
-                        this.ViewBag.Page = page;
-
-                       
-
                     }
                     con.Close();
 
-                    return this.View("ResView", data);
+                    return View("ResView", DataList);
                 }
 
             }
