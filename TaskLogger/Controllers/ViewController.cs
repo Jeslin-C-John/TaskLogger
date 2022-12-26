@@ -38,7 +38,7 @@ namespace TaskLogger.Controllers
             }
 
             var DataList = new List<Task>();
-            using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=HP_5300U;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
 
                 using (SqlCommand cmd = new SqlCommand("viewtask", con))

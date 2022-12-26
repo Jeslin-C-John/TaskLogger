@@ -26,7 +26,7 @@ namespace TaskLogger.Controllers
             if (ModelState.IsValid)
             {
 
-                using (SqlConnection con = new SqlConnection("Data Source=INSPIRON;Initial Catalog=TaskLogger;Integrated Security=True"))
+                using (SqlConnection con = new SqlConnection("Data Source=HP_5300U;Initial Catalog=TaskLogger;Integrated Security=True"))
                 {
                     using (SqlCommand cmd = new SqlCommand("deletetask", con))
                     {
