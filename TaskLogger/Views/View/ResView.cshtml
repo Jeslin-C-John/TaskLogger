@@ -104,8 +104,7 @@
                 <th>Date</th>
                 <th>Hours</th>
                 <th>Status</th>
-                @*<th>Update</th>
-                    <th>Delete</th>*@
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -116,8 +115,11 @@
                     <td>@instance.ShortDate</td>
                     <td>@instance.Hours</td>
                     <td>@instance.StringStatus</td>
-                    @*<td><input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" /></td>
-                        <td><input type="button" value="Delete" onclick="location.href = '@Url.Action("Index", "Delete", new { Taskid=@instance.Taskid})'" /></td>*@
+                    <td>
+                        <input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" />
+                        @Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid },new { onclick = "return confirm('Are sure wants to delete?');" })
+                    </td>
+    
                 </tr>
             }
         </tbody>
