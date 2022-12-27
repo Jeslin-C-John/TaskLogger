@@ -79,6 +79,7 @@
     <br />
 
     <input class="btn btn-primary btn-sm float-left" type="button" value="Add Task" onclick="location.href = '/Add/Index'" />
+    <input class="btn btn-primary btn-sm float-left" type="button" value="Reset All Filters" onclick="location.href = '/View/Index'" />
     <hr />
     <hr />
     @*<input class="btn btn-primary btn-sm float-left" type="button" value="Filter By Date" onclick="location.href = '/Filter/Index'" />*@
@@ -116,10 +117,11 @@
                     <td>@instance.Hours</td>
                     <td>@instance.StringStatus</td>
                     <td>
-                        <input type="button" value="Update" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" />
-                        @Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid },new { onclick = "return confirm('Are sure wants to delete?');" })
+                        @Html.ActionLink("Update", "Index", "Update",  new { Taskid = @instance.Taskid }, null)
+                        
+                        @Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid }, new { onclick = "return confirm('Confirm Delete?');" })
                     </td>
-    
+
                 </tr>
             }
         </tbody>
