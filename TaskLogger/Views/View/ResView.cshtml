@@ -13,7 +13,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
-
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -23,50 +25,59 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
 
 @*<script>
-    $(document).ready(function () {
-        $('#view').DataTable();
-    });
-</script>*@
+            $(document).ready(function () {
+                $('#view').DataTable();
+                
+            
+    </script>*@
 
 <script>
     var minDate, maxDate;
 
-    // Custom filtering function which will search data in column four between two values
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            var min = minDate.val();
-            var max = maxDate.val();
-            var date = new Date(data[1]);
-
-            if (
-                (min === null && max === null) ||
-                (min === null && date <= max) ||
-                (min <= date && max === null) ||
-                (min <= date && date <= max)
-            ) {
-                return true;
-            }
-            return false;
-        }
-    );
-
-    $(document).ready(function () {
-        // Create date inputs
-        minDate = new DateTime($('#min'), {
-            format: 'MMMM Do YYYY'
-        });
-        maxDate = new DateTime($('#max'), {
-            format: 'MMMM Do YYYY'
-        });
-
-        // DataTables initialisation
-        var table = $('#view').DataTable();
-
-        // Refilter the table
-        $('#min, #max').on('change', function () {
-            table.draw();
-        });
+    $('#view').DataTable({
+        responsive: true
     });
+
+        // Custom filtering function which will search data in column four between two values
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date(data[1]);
+
+                if (
+                    (min === null && max === null) ||
+                    (min === null && date <= max) ||
+                    (min <= date && max === null) ||
+                    (min <= date && date <= max)
+                ) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            // DataTables initialisation
+            var table = $('#view').DataTable();
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
+            $("#btnLink").click(function () {
+                $('#ModalPopUp').modal('show');
+            });
+        });
+               
 </script>
 
 
@@ -79,26 +90,30 @@
     <br />
 
     <input class="btn btn-primary btn-sm float-left" type="button" value="Add Task" onclick="location.href = '/Add/Index'" />
+    <br /><br />
     <input class="btn btn-primary btn-sm float-left" type="button" value="Reset All Filters" onclick="location.href = '/View/Index'" />
     <hr />
     <hr />
     @*<input class="btn btn-primary btn-sm float-left" type="button" value="Filter By Date" onclick="location.href = '/Filter/Index'" />*@
+</center>
 
+<br />
+<br />
+<table border="0" cellspacing="5" cellpadding="5">
+    <tbody>
+        <tr>
+            <td>Minimum date:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum date:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody>
+</table>
 
-    <br /><br />
-    <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>Minimum date:</td>
-                <td><input type="text" id="min" name="min"></td>
-            </tr>
-            <tr>
-                <td>Maximum date:</td>
-                <td><input type="text" id="max" name="max"></td>
-            </tr>
-        </tbody>
-    </table>
-    <table id="view">
+<center>
+    <table id="view" style="table-layout: fixed; width: 100% !important;">
         <thead>
             <tr>
                 <th>Task ID</th>
@@ -117,9 +132,45 @@
                     <td>@instance.Hours</td>
                     <td>@instance.StringStatus</td>
                     <td>
-                        @Html.ActionLink("Update", "Index", "Update",  new { Taskid = @instance.Taskid }, null)
-                        
-                        @Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid }, new { onclick = "return confirm('Confirm Delete?');" })
+                        @*@Html.ActionLink("Update", "Index", "Update", new { Taskid = @instance.Taskid }, null)*@
+
+                        <input type="button" value="Update" class="btn-primary" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" />
+
+                        @*@Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid }, new { onclick = "return confirm('Confirm Delete?');" })*@
+
+                        <button type="button" class="btn-primary" name="btnLink" id="btnLink">Delete</button>
+
+                        <div class="modal fade" id="ModalPopUp" role="dialog">
+                            <div class="modal-dialog err-pop" style="">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3>Delete Task: @instance.Taskid</h3>
+                                    </div>
+                                    <div class="modal-body" style="text-align:center;">
+
+
+                                        @using (Html.BeginForm())
+                                        {
+
+
+                                            <div>
+                                                <br />
+                                                @*@Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid })*@
+
+                                                <input type="button" value="Delete" class="btn-danger" onclick="location.href = '@Url.Action("Delete", "View", new { Taskid=@instance.Taskid})'" />
+
+                                                @*@Html.ActionLink("Cancel", "Index")*@
+
+                                                <input type="button" value="Cancel" class="btn-primary" onclick="location.href = '@Url.Action("Index", "View")'" />
+
+
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                     </td>
 
                 </tr>
@@ -132,3 +183,8 @@
 
 
 </center>
+
+
+
+
+
