@@ -68,7 +68,7 @@
             $('#min, #max').on('change', function () {
                 table.draw();
             });
-            $("#btnLink").click(function () {
+            $(".btnLink").click(function () {
                 $('#ModalPopUp').modal('show');
             });
         });
@@ -133,7 +133,7 @@
 
                         @*@Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid }, new { onclick = "return confirm('Confirm Delete?');" })*@
 
-                        <button type="button" class="btn-primary" name="btnLink" id="btnLink">Delete</button>
+                        <button type="button" class="btn-primary btnLink" name="btnLink" id="btnLink">Delete</button>
 
                         <div class="modal fade" id="ModalPopUp" role="dialog">
                             <div class="modal-dialog err-pop" style="">
