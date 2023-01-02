@@ -26,54 +26,6 @@
 
 
 
-<script>
-    var minDate, maxDate;
-
-    $('#view').DataTable({
-        responsive: true
-    });
-
-        // Custom filtering function which will search data in column four between two values
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                var min = minDate.val();
-                var max = maxDate.val();
-                var date = new Date(data[1]);
-
-                if (
-                    (min === null && max === null) ||
-                    (min === null && date <= max) ||
-                    (min <= date && max === null) ||
-                    (min <= date && date <= max)
-                ) {
-                    return true;
-                }
-                return false;
-            }
-        );
-
-        $(document).ready(function () {
-            // Create date inputs
-            minDate = new DateTime($('#min'), {
-                format: 'MMMM Do YYYY'
-            });
-            maxDate = new DateTime($('#max'), {
-                format: 'MMMM Do YYYY'
-            });
-
-            // DataTables initialisation
-            var table = $('#view').DataTable();
-
-            // Refilter the table
-            $('#min, #max').on('change', function () {
-                table.draw();
-            });
-            $(".btnLink").click(function () {
-                $('#ModalPopUp').modal('show');
-            });
-        });
-               
-</script>
 
 
 
@@ -118,24 +70,77 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
+
+
+
+        @*<tbody>
+        @{ int count = 1;}
+        @foreach (var instance in Model)
+        {
+            
+            <tr class="sacss">
+                <td>@instance.Taskid</td>
+                <td>@instance.ShortDate</td>
+                <td>@instance.Hours</td>
+                <td>@instance.StringStatus</td>
+                <td class="datatable-ct">
+                    <div class="button-ap-list responsive-btn">
+                        <div class="btn-group btn-custom-groups" style="margin-left:26%">
+                            <input type="button" value="Update" class="btn-primary" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" />
+
+                            <a class="btn btn-danger btnLink" data-toggle="modal" data-target="#DangerModalalert_@count" data-item="@instance.Taskid"><i style="font-size:15px" class="fa fa-trash" aria-hidden="true"></i></a>
+        <button type="button" class="btn-primary btnLink" data-toggle="modal" name="btnLink" id="btnLink" data-target="#DangerModalalert_@count" data-item="@instance.Taskid">Delete</button>
+
+        <div id="DangerModalalert_@count" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                    <div class="modal-body">
+                        <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
+                    </div>
+                    <div class="modal-footer danger-md">
+                        <a data-dismiss="modal" href="#">Cancel</a>
+                        <a style="background-color:red" href="@Url.Action("Delete", "View", new { Taskid=@instance.Taskid})">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        </td>
+        </tr>
+            ++count;
+
+        }
+        </tbody>*@
+
+
+
+
         <tbody>
+            @{ int count = 1;}
             @foreach (var instance in Model)
             {
+
+                ++count;
                 <tr>
                     <td>@instance.Taskid</td>
                     <td>@instance.ShortDate</td>
                     <td>@instance.Hours</td>
                     <td>@instance.StringStatus</td>
                     <td>
-                        @*@Html.ActionLink("Update", "Index", "Update", new { Taskid = @instance.Taskid }, null)*@
+                       
 
                         <input type="button" value="Update" class="btn-primary" onclick="location.href = '@Url.Action("Index", "Update", new { Taskid=@instance.Taskid})'" />
 
-                        @*@Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid }, new { onclick = "return confirm('Confirm Delete?');" })*@
+                       
+                        <button type="button" class="btn-primary btnLink" name="btnLink" onclick="$('#DangerModalalert_@count').modal('show');" data-target="#DangerModalalert_@count" data-item="@instance.Taskid">Delete</button>
 
-                        <button type="button" class="btn-primary btnLink" name="btnLink" id="btnLink">Delete</button>
-
-                        <div class="modal fade" id="ModalPopUp" role="dialog">
+                        <div class="modal fade" id="DangerModalalert_@count" role="dialog">
                             <div class="modal-dialog err-pop" style="">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -150,11 +155,11 @@
 
                                             <div>
                                                 <br />
-                                                @*@Html.ActionLink("Delete", "Delete", new { Taskid = @instance.Taskid })*@
+
 
                                                 <input type="button" value="Delete" class="btn-danger" onclick="location.href = '@Url.Action("Delete", "View", new { Taskid=@instance.Taskid})'" />
 
-                                                @*@Html.ActionLink("Cancel", "Index")*@
+                                               
 
                                                 <input type="button" value="Cancel" class="btn-primary" onclick="location.href = '@Url.Action("Index", "View")'" />
 
@@ -165,12 +170,17 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </td>
 
                 </tr>
+
+
             }
         </tbody>
+
+
+
     </table>
     <br />
 
@@ -179,6 +189,52 @@
 
 </center>
 
+<script>
+    var minDate, maxDate;
+
+
+
+        // Custom filtering function which will search data in column four between two values
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date(data[1]);
+
+                if (
+                    (min === null && max === null) ||
+                    (min === null && date <= max) ||
+                    (min <= date && max === null) ||
+                    (min <= date && date <= max)
+                ) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            // DataTables initialisation
+            var table = $('#view').DataTable();
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
+            @*$(".btnLink").click(function () {
+                $('#DangerModalalert_@count').modal('show');
+            });*@
+        });
+
+</script>
 
 
 

@@ -46,8 +46,8 @@ namespace TaskLogger.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@empid", Session["id"]);
-                    cmd.Parameters.AddWithValue("@startdate", e.StartDate);
-                    cmd.Parameters.AddWithValue("@enddate", e.EndDate);
+                    //cmd.Parameters.AddWithValue("@startdate", e.StartDate);
+                    //cmd.Parameters.AddWithValue("@enddate", e.EndDate);
 
 
                     con.Open();
