@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TaskLogger.Models;
 using System.Reflection;
 using System.Globalization;
+using System.Web.Security;
 
 namespace TaskLogger.Controllers
 {
@@ -19,7 +20,7 @@ namespace TaskLogger.Controllers
         //    return View();
         //}
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult Index(ViewTask e)
         {

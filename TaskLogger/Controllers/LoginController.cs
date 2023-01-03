@@ -8,12 +8,14 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TaskLogger.Models;
+using System.Web.Security;
 
 namespace TaskLogger.Controllers
 {
     public class LoginController : Controller
     {
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             
@@ -21,8 +23,10 @@ namespace TaskLogger.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Index(UserLogin instance)
         {
+            
             
             if (ModelState.IsValid)
             {
@@ -56,6 +60,9 @@ namespace TaskLogger.Controllers
 
                         instance.Name = sdr.GetString(1);
                         Session["Name"] = instance.Name.ToString();
+
+                            FormsAuthentication.SetAuthCookie(instance.Email, instance.RememberMe);
+                            
                         return RedirectToAction("Index", "View", new { area = "" });
                     }
                     con.Close();

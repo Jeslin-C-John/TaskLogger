@@ -21,5 +21,7 @@ namespace TaskLogger.Models
 
         public int id { get; set; }
         public string EncryptPass { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

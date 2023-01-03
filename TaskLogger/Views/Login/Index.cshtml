@@ -14,7 +14,7 @@
 <center>
     <h1 class="font-weight-bold">Login</h1>
     <br /><br />
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post ))
     {
         <div>
             <br />
@@ -29,9 +29,13 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div>
+            <br />Remember Me 
+            @Html.CheckBoxFor(model=>model.RememberMe)
+        </div>
+        <div>
             <br /><div class="text-danger">
-    @ViewBag.Message    
-</div><br /><br /><br />
+                @ViewBag.Message
+            </div><br /><br /><br />
             <input class="btn btn-primary" type="submit" value="Login" />
 
 
