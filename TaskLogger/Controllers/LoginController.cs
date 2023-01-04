@@ -18,7 +18,11 @@ namespace TaskLogger.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            
+            if (Request.Cookies["AutoLogin"] != null || Request.QueryString["autologin"] != null)
+            {
+                FormsAuthentication.SetAuthCookie("AutoLoginUser", true);
+                return RedirectToAction("ResView", "View");
+            }
             return View();
         }
 
@@ -26,6 +30,7 @@ namespace TaskLogger.Controllers
         [AllowAnonymous]
         public ActionResult Index(UserLogin instance)
         {
+            
             
             
             if (ModelState.IsValid)
