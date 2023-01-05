@@ -16,7 +16,7 @@ namespace TaskLogger.Controllers
         public ActionResult Index(int Taskid)
         {
             ViewBag.Name = Session["Name"];
-            using (SqlConnection con = new SqlConnection("Data Source=HP_5300U;Initial Catalog=TaskLogger;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=PAVILION;Initial Catalog=TaskLogger;Integrated Security=True"))
             {
 
                 using (SqlCommand cmd = new SqlCommand("viewupdate", con))
