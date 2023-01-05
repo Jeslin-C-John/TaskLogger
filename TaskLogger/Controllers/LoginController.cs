@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TaskLogger.Models;
 using System.Web.Security;
+using System.Xml.Linq;
 
 namespace TaskLogger.Controllers
 {
@@ -22,6 +23,41 @@ namespace TaskLogger.Controllers
             {
                 FormsAuthentication.SetAuthCookie("AutoLoginUser", true);
                 return RedirectToAction("ResView", "View");
+            }
+
+            if (Request.IsAuthenticated)
+            {
+                UserLogin e = new UserLogin();
+
+                FormsAuthentication.SetAuthCookie("AutoLoginUser", true);
+                using (SqlConnection con = new SqlConnection("Data Source=PAVILION;Initial Catalog=TaskLogger;Integrated Security=True"))
+                {
+                    using (SqlCommand cmd = new SqlCommand("autologin", con))
+                    {
+                        HttpCookie nameCookie = Request.Cookies["Email"];
+                        var Length = nameCookie.Value.Length;
+                        var myString = nameCookie.Value.ToString().Substring(6, (Length-6));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@email", myString);
+                        con.Open();
+                        SqlDataReader sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
+                            e.id = sdr.GetInt32(0);
+                            Session["id"] = e.id;
+
+                            e.Name = sdr.GetString(1);
+                            Session["Name"] = e.Name.ToString();
+
+                            FormsAuthentication.SetAuthCookie(e.Email, e.RememberMe);
+
+                            return RedirectToAction("Index", "View", new { area = "" });
+                        }
+                        con.Close();
+
+                        ViewBag.Message = "Invalid Credentials!";
+                    }
+                }
             }
             return View();
         }
@@ -68,7 +104,20 @@ namespace TaskLogger.Controllers
 
                             FormsAuthentication.SetAuthCookie(instance.Email, instance.RememberMe);
                             
-                        return RedirectToAction("Index", "View", new { area = "" });
+                                //Create a Cookie with a suitable Key.
+                                HttpCookie nameCookie = new HttpCookie("Email");
+
+                                //Set the Cookie value.
+                                nameCookie.Values["Email"] = instance.Email;
+
+                                //Set the Expiry date.
+                                nameCookie.Expires = DateTime.Now.AddDays(30);
+
+                                //Add the Cookie to Browser.
+                                Response.Cookies.Add(nameCookie);
+                            
+
+                            return RedirectToAction("Index", "View", new { area = "" });
                     }
                     con.Close();
 
